@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet">
+  <style>
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{ margin:0; background:#F5F1EA; }
+    ::selection{ background:#9B7B50; color:#F5F1EA; }
+    @media (max-width: 880px){
+      [data-r~="g2"]{ grid-template-columns:1fr !important; gap:40px !important; }
+      [data-r~="g3"]{ grid-template-columns:1fr !important; }
+      [data-r~="navlinks"]{ display:none !important; }
+      [data-r~="navbtn"]{ display:inline-flex !important; }
+      [data-r~="pad"]{ padding-left:20px !important; padding-right:20px !important; }
+      [data-r~="badge"]{ left:12px !important; bottom:12px !important; }
+      [data-r~="tradestrip"]{ justify-content:flex-start !important; gap:10px 22px !important; }
+      [data-r~="wordmark"]{ font-size:12px !important; letter-spacing:0.1em !important; }
+      [data-r~="formcard"]{ padding:26px 20px 30px !important; }
+    }
+    @media (max-width: 520px){
+      [data-r~="g2sub"]{ grid-template-columns:1fr !important; }
+      [data-r~="herostack"]{ flex-wrap:wrap !important; }
+    }
+  </style>
+</helmet>
+
+<div style="font-family:'Hanken Grotesk',system-ui,sans-serif; color:#2B2722; background:#F5F1EA; -webkit-font-smoothing:antialiased; overflow-x:hidden;">
+
+  <!-- ============ NAV ============ -->
+  <header style="position:sticky; top:0; z-index:50; background:rgba(245,241,234,0.82); backdrop-filter:blur(12px); border-bottom:1px solid #E1D8C8;">
+    <nav style="max-width:1280px; margin:0 auto; padding:18px 40px; display:flex; align-items:center; justify-content:space-between; gap:24px;" data-r="nav pad">
+      <a href="#top" style="display:flex; align-items:center; gap:12px; text-decoration:none; color:#23201C;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; background:#23201C; color:#F5F1EA; font-weight:800; font-size:14px; letter-spacing:0.04em; border-radius:3px;">BDC</span>
+        <span style="font-weight:700; font-size:15px; letter-spacing:0.16em; text-transform:uppercase;" data-r="wordmark">Ballard Design Center</span>
+      </a>
+      <div style="display:flex; align-items:center; gap:30px;">
+        <div style="display:flex; align-items:center; gap:26px; font-size:14px; font-weight:500;" data-r="navlinks">
+          <a href="#destination" style="color:#5C564C; text-decoration:none;">The Center</a>
+          <a href="#showrooms" style="color:#5C564C; text-decoration:none;">Showrooms</a>
+          <a href="#workspace" style="color:#5C564C; text-decoration:none;">Workspace</a>
+          <a href="#location" style="color:#5C564C; text-decoration:none;">Location</a>
+        </div>
+        <a href="#inquire" style="display:inline-flex; align-items:center; padding:11px 20px; background:#23201C; color:#F5F1EA; font-size:13.5px; font-weight:600; letter-spacing:0.02em; text-decoration:none; border-radius:3px; white-space:nowrap;">Tenant Inquiry</a>
+        <button onClick="{{ toggleMenu }}" aria-label="Toggle menu" data-r="navbtn" style="display:none; align-items:center; justify-content:center; width:42px; height:40px; background:none; border:1px solid #CDC2AE; border-radius:3px; cursor:pointer; padding:0;">
+          <span style="display:flex; flex-direction:column; gap:4px;"><span style="display:block; width:18px; height:2px; background:#23201C;"></span><span style="display:block; width:18px; height:2px; background:#23201C;"></span><span style="display:block; width:18px; height:2px; background:#23201C;"></span></span>
+        </button>
+      </div>
+    </nav>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid #E1D8C8; background:rgba(245,241,234,0.98);">
+        <div style="display:flex; flex-direction:column; padding:6px 20px 16px;">
+          <a href="#destination" onClick="{{ closeMenu }}" style="padding:14px 2px; font-size:16px; font-weight:600; color:#23201C; text-decoration:none; border-bottom:1px solid #E8E0D2;">The Center</a>
+          <a href="#showrooms" onClick="{{ closeMenu }}" style="padding:14px 2px; font-size:16px; font-weight:600; color:#23201C; text-decoration:none; border-bottom:1px solid #E8E0D2;">Showrooms</a>
+          <a href="#workspace" onClick="{{ closeMenu }}" style="padding:14px 2px; font-size:16px; font-weight:600; color:#23201C; text-decoration:none; border-bottom:1px solid #E8E0D2;">Workspace</a>
+          <a href="#location" onClick="{{ closeMenu }}" style="padding:14px 2px; font-size:16px; font-weight:600; color:#23201C; text-decoration:none; border-bottom:1px solid #E8E0D2;">Location</a>
+          <a href="#inquire" onClick="{{ closeMenu }}" style="margin-top:12px; padding:13px; text-align:center; font-size:15px; font-weight:600; color:#F5F1EA; background:#23201C; text-decoration:none; border-radius:3px;">Tenant Inquiry</a>
+        </div>
+      </div>
+    </sc-if>
+  </header>
+
+  <span id="top"></span>
+
+  <!-- ============ HERO ============ -->
+  <section style="max-width:1280px; margin:0 auto; padding:76px 40px 60px;" data-r="pad">
+    <div style="display:grid; grid-template-columns:1.02fr 0.98fr; gap:64px; align-items:center;" data-r="g2">
+      <div>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:26px;">
+          <span style="width:7px; height:7px; border-radius:50%; background:{{ accent }};"></span>
+          <span style="font-size:12.5px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:{{ accent }};">Pre-Leasing · A Ballard Design Concept</span>
+        </div>
+        <h1 style="font-family:'Newsreader',Georgia,serif; font-weight:400; font-size:clamp(40px,5vw,68px); line-height:1.04; letter-spacing:-0.015em; margin:0 0 26px; color:#23201C;">The design trade,<br>under one<br><em style="font-style:italic; color:{{ accent }};">Ballard roof.</em></h1>
+        <p style="font-size:18px; line-height:1.62; color:#5C564C; max-width:520px; margin:0 0 34px;">A curated showroom concept bringing surfaces, cabinetry, plumbing, and textiles together with private studio space. Imagined for Northwest Seattle's designers, architects, and builders. Now pre-leasing ahead of a planned 2027 opening.</p>
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:14px; margin-bottom:38px;">
+          <a href="#inquire" style="display:inline-flex; align-items:center; padding:15px 28px; background:#23201C; color:#F5F1EA; font-size:15px; font-weight:600; text-decoration:none; border-radius:3px;">Prospective Tenant Inquiry</a>
+          <a href="#showrooms" style="display:inline-flex; align-items:center; gap:8px; padding:15px 22px; color:#23201C; font-size:15px; font-weight:600; text-decoration:none; border:1px solid #CDC2AE; border-radius:3px;">Explore the showrooms</a>
+        </div>
+        <div style="display:flex; align-items:center; gap:18px; padding-top:26px; border-top:1px solid #E1D8C8;">
+          <div>
+            <div style="font-size:12px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#9A9082; margin-bottom:6px;">The site</div>
+            <div style="font-family:'Newsreader',serif; font-size:21px; color:#23201C;">1500 NW Leary Way</div>
+            <div style="font-size:14px; color:#5C564C;">Corner of 15th Ave NW &amp; NW Leary Way · Ballard, Seattle</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="position:relative;">
+        <div style="position:relative; aspect-ratio:4/5; border-radius:5px; overflow:hidden; border:1px solid #D8CFC0; background:repeating-linear-gradient(135deg,#E7DFCF 0,#E7DFCF 1px,#EFE9DD 1px,#EFE9DD 13px);">
+          <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;">
+            <span style="font-family:ui-monospace,Menlo,monospace; font-size:12px; letter-spacing:0.04em; color:#8B8170; background:rgba(245,241,234,0.7); padding:6px 12px; border-radius:3px;">concept render — showroom floor (placeholder)</span>
+          </div>
+        </div>
+        <sc-if value="{{ showBadge }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute; left:-22px; bottom:36px; background:#F5F1EA; border:1px solid #E1D8C8; border-radius:4px; padding:14px 18px; box-shadow:0 10px 30px rgba(35,32,28,0.10);" data-r="badge">
+            <div style="font-size:11.5px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:{{ accent }}; margin-bottom:4px;">For the trade</div>
+            <div style="font-size:14px; color:#3C382F; font-weight:500;">Open to designers &amp; suppliers</div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MARQUEE / TRADE STRIP ============ -->
+  <section style="border-top:1px solid #E1D8C8; border-bottom:1px solid #E1D8C8; background:#EFE8DB;">
+    <div style="max-width:1280px; margin:0 auto; padding:22px 40px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:18px 40px;" data-r="pad tradestrip">
+      <span style="font-size:12px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#9A8F7D;">Made for the trade</span>
+      <span style="font-family:'Newsreader',serif; font-size:18px; color:#3C382F;">Interior Designers</span>
+      <span style="width:5px; height:5px; border-radius:50%; background:#C6BBA5;"></span>
+      <span style="font-family:'Newsreader',serif; font-size:18px; color:#3C382F;">Architects</span>
+      <span style="width:5px; height:5px; border-radius:50%; background:#C6BBA5;"></span>
+      <span style="font-family:'Newsreader',serif; font-size:18px; color:#3C382F;">General Contractors</span>
+      <span style="width:5px; height:5px; border-radius:50%; background:#C6BBA5;"></span>
+      <span style="font-family:'Newsreader',serif; font-size:18px; color:#3C382F;">&amp; their clients</span>
+    </div>
+  </section>
+
+  <!-- ============ ONE DESTINATION (dark band) ============ -->
+  <section id="destination" style="background:#23201C; color:#EDE7DB;">
+    <div style="max-width:1280px; margin:0 auto; padding:96px 40px 100px;" data-r="pad">
+      <div style="max-width:780px;">
+        <div style="font-size:12.5px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:{{ accent }}; margin-bottom:22px;">One destination</div>
+        <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(30px,3.6vw,48px); line-height:1.12; letter-spacing:-0.01em; margin:0 0 24px; color:#F5F1EA;">Everything a project needs, gathered in one place.</h2>
+        <p style="font-size:17px; line-height:1.66; color:#B7AF9F; margin:0; max-width:620px;">No more crossing the bridge to Bellevue, no more chasing six addresses for one room. The Ballard Design Center is Northwest Seattle's curated answer for designers and their clients.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1px; margin-top:64px; background:#36322B; border:1px solid #36322B; border-radius:5px; overflow:hidden;" data-r="g3">
+        <div style="background:#23201C; padding:34px 28px;">
+          <div style="font-size:17px; font-weight:700; color:#F5F1EA; margin-bottom:10px;">Everything in one place</div>
+          <p style="font-size:14.5px; line-height:1.62; color:#A79E8D; margin:0;">Surfaces, cabinetry, plumbing, textiles, and your studio, all under a single Ballard roof.</p>
+        </div>
+        <div style="background:#23201C; padding:34px 28px;">
+          <div style="font-size:17px; font-weight:700; color:#F5F1EA; margin-bottom:10px;">Private &amp; focused</div>
+          <p style="font-size:14.5px; line-height:1.62; color:#A79E8D; margin:0;">Bring clients to unhurried, by-appointment visits. Never a crowded retail floor.</p>
+        </div>
+        <div style="background:#23201C; padding:34px 28px;">
+          <div style="font-size:17px; font-weight:700; color:#F5F1EA; margin-bottom:10px;">Curated showcase</div>
+          <p style="font-size:14.5px; line-height:1.62; color:#A79E8D; margin:0;">One best-in-class tenant per category, chosen to complement your project.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SHOWROOMS ============ -->
+  <section id="showrooms" style="max-width:1280px; margin:0 auto; padding:96px 40px 40px;" data-r="pad">
+    <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:46px;">
+      <div style="max-width:600px;">
+        <div style="font-size:12.5px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:{{ accent }}; margin-bottom:18px;">The Showrooms</div>
+        <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(30px,3.6vw,46px); line-height:1.1; letter-spacing:-0.01em; margin:0; color:#23201C;">A floor plan organized the way a project comes together.</h2>
+      </div>
+      <p style="font-size:15px; line-height:1.6; color:#5C564C; max-width:300px;">Each category anchored by a single, carefully selected showroom. Full-size displays, real samples, trade pricing.</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;" data-r="g3">
+      <!-- card 1 -->
+      <article style="border:1px solid #E1D8C8; border-radius:5px; overflow:hidden; background:#FBF8F2;">
+        <div style="aspect-ratio:3/2; background:repeating-linear-gradient(135deg,#E7DFCF 0,#E7DFCF 1px,#F3EEE3 1px,#F3EEE3 12px); display:flex; align-items:center; justify-content:center; border-bottom:1px solid #E1D8C8;">
+          <span style="font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#8B8170; background:rgba(251,248,242,0.8); padding:5px 10px; border-radius:3px;">flooring · tile · stone</span>
+        </div>
+        <div style="padding:24px 24px 28px;">
+          <div style="font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#A79A82; margin-bottom:10px;">Category 01</div>
+          <h3 style="font-family:'Newsreader',serif; font-size:24px; font-weight:500; margin:0 0 10px; color:#23201C;">Flooring, Tile &amp; Stone</h3>
+          <p style="font-size:14.5px; line-height:1.6; color:#5C564C; margin:0;">Hardwood, large-format tile, and natural stone shown in full-size installations.</p>
+        </div>
+      </article>
+      <!-- card 2 -->
+      <article style="border:1px solid #E1D8C8; border-radius:5px; overflow:hidden; background:#FBF8F2;">
+        <div style="aspect-ratio:3/2; background:repeating-linear-gradient(135deg,#E7DFCF 0,#E7DFCF 1px,#F3EEE3 1px,#F3EEE3 12px); display:flex; align-items:center; justify-content:center; border-bottom:1px solid #E1D8C8;">
+          <span style="font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#8B8170; background:rgba(251,248,242,0.8); padding:5px 10px; border-radius:3px;">slab · quartz · porcelain</span>
+        </div>
+        <div style="padding:24px 24px 28px;">
+          <div style="font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#A79A82; margin-bottom:10px;">Category 02</div>
+          <h3 style="font-family:'Newsreader',serif; font-size:24px; font-weight:500; margin:0 0 10px; color:#23201C;">Counters &amp; Surfaces</h3>
+          <p style="font-size:14.5px; line-height:1.6; color:#5C564C; margin:0;">Quartz, porcelain, and natural stone slabs viewable as full sheets, not chips.</p>
+        </div>
+      </article>
+      <!-- card 3 -->
+      <article style="border:1px solid #E1D8C8; border-radius:5px; overflow:hidden; background:#FBF8F2;">
+        <div style="aspect-ratio:3/2; background:repeating-linear-gradient(135deg,#E7DFCF 0,#E7DFCF 1px,#F3EEE3 1px,#F3EEE3 12px); display:flex; align-items:center; justify-content:center; border-bottom:1px solid #E1D8C8;">
+          <span style="font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#8B8170; background:rgba(251,248,242,0.8); padding:5px 10px; border-radius:3px;">cabinetry · finishes</span>
+        </div>
+        <div style="padding:24px 24px 28px;">
+          <div style="font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#A79A82; margin-bottom:10px;">Category 03</div>
+          <h3 style="font-family:'Newsreader',serif; font-size:24px; font-weight:500; margin:0 0 10px; color:#23201C;">Cabinetry</h3>
+          <p style="font-size:14.5px; line-height:1.6; color:#5C564C; margin:0;">Custom and semi-custom cabinet lines — door styles, woods, and finishes side by side.</p>
+        </div>
+      </article>
+      <!-- card 4 -->
+      <article style="border:1px solid #E1D8C8; border-radius:5px; overflow:hidden; background:#FBF8F2;">
+        <div style="aspect-ratio:3/2; background:repeating-linear-gradient(135deg,#E7DFCF 0,#E7DFCF 1px,#F3EEE3 1px,#F3EEE3 12px); display:flex; align-items:center; justify-content:center; border-bottom:1px solid #E1D8C8;">
+          <span style="font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#8B8170; background:rgba(251,248,242,0.8); padding:5px 10px; border-radius:3px;">plumbing · kitchen + bath</span>
+        </div>
+        <div style="padding:24px 24px 28px;">
+          <div style="font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#A79A82; margin-bottom:10px;">Category 04</div>
+          <h3 style="font-family:'Newsreader',serif; font-size:24px; font-weight:500; margin:0 0 10px; color:#23201C;">Plumbing &amp; Fixtures</h3>
+          <p style="font-size:14.5px; line-height:1.6; color:#5C564C; margin:0;">A working kitchen-and-bath showroom — fixtures, fittings, and hardware to specify from.</p>
+        </div>
+      </article>
+      <!-- card 5 -->
+      <article style="border:1px solid #E1D8C8; border-radius:5px; overflow:hidden; background:#FBF8F2;">
+        <div style="aspect-ratio:3/2; background:repeating-linear-gradient(135deg,#E7DFCF 0,#E7DFCF 1px,#F3EEE3 1px,#F3EEE3 12px); display:flex; align-items:center; justify-content:center; border-bottom:1px solid #E1D8C8;">
+          <span style="font-family:ui-monospace,Menlo,monospace; font-size:11px; color:#8B8170; background:rgba(251,248,242,0.8); padding:5px 10px; border-radius:3px;">fabric · wallpaper · trim</span>
+        </div>
+        <div style="padding:24px 24px 28px;">
+          <div style="font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#A79A82; margin-bottom:10px;">Category 05</div>
+          <h3 style="font-family:'Newsreader',serif; font-size:24px; font-weight:500; margin:0 0 10px; color:#23201C;">Fabric &amp; Wallpaper</h3>
+          <p style="font-size:14.5px; line-height:1.6; color:#5C564C; margin:0;">Textiles, wallcoverings, and trim from trade lines — memo samples on hand.</p>
+        </div>
+      </article>
+      <!-- card 6 — workspace teaser -->
+      <article style="border:1px solid #23201C; border-radius:5px; overflow:hidden; background:#23201C; color:#EDE7DB; display:flex; flex-direction:column;">
+        <div style="padding:24px 24px 0;">
+          <div style="font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:{{ accent }}; margin-bottom:10px;">Category 06</div>
+          <h3 style="font-family:'Newsreader',serif; font-size:24px; font-weight:500; margin:0 0 10px; color:#F5F1EA;">Designer Workspace</h3>
+          <p style="font-size:14.5px; line-height:1.6; color:#A79E8D; margin:0 0 18px;">A co-working studio floor for the trade — desks, offices, and a materials library.</p>
+        </div>
+        <div style="margin-top:auto; padding:0 24px 24px;">
+          <a href="#workspace" style="display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:{{ accent }}; text-decoration:none;">See the workspace →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ WORKSPACE ============ -->
+  <section id="workspace" style="background:#EFE8DB; border-top:1px solid #E1D8C8; border-bottom:1px solid #E1D8C8; margin-top:80px;">
+    <div style="max-width:1280px; margin:0 auto; padding:90px 40px; display:grid; grid-template-columns:0.95fr 1.05fr; gap:60px; align-items:center;" data-r="g2 pad">
+      <div style="position:relative; aspect-ratio:5/4; border-radius:5px; overflow:hidden; border:1px solid #D8CFC0; background:repeating-linear-gradient(135deg,#E2D9C8 0,#E2D9C8 1px,#EDE6D8 1px,#EDE6D8 13px);">
+        <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+          <span style="font-family:ui-monospace,Menlo,monospace; font-size:12px; color:#8B8170; background:rgba(239,232,219,0.8); padding:6px 12px; border-radius:3px;">concept sketch — co-working studio floor</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12.5px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:{{ accent }}; margin-bottom:20px;">The Workspace</div>
+        <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(28px,3.4vw,44px); line-height:1.12; letter-spacing:-0.01em; margin:0 0 22px; color:#23201C;">Your studio, steps from every sample.</h2>
+        <p style="font-size:16.5px; line-height:1.66; color:#5C564C; margin:0 0 28px; max-width:520px;">A WeWork-style floor built for designers and architects: daylit desks, private offices, meeting rooms, and a shared materials library so you can pull a slab, sit a client down, and finish the spec without leaving the building.</p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px 30px; max-width:480px;" data-r="g2sub">
+          <div style="border-top:1px solid #D6CCBA; padding-top:14px;"><div style="font-size:14.5px; font-weight:600; color:#23201C; margin-bottom:4px;">Dedicated desks &amp; offices</div></div>
+          <div style="border-top:1px solid #D6CCBA; padding-top:14px;"><div style="font-size:14.5px; font-weight:600; color:#23201C; margin-bottom:4px;">Client meeting rooms</div></div>
+          <div style="border-top:1px solid #D6CCBA; padding-top:14px;"><div style="font-size:14.5px; font-weight:600; color:#23201C; margin-bottom:4px;">Materials library</div></div>
+          <div style="border-top:1px solid #D6CCBA; padding-top:14px;"><div style="font-size:14.5px; font-weight:600; color:#23201C; margin-bottom:4px;">Parking &amp; loading</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LOCATION ============ -->
+  <section id="location" style="max-width:1280px; margin:0 auto; padding:96px 40px;" data-r="pad">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;" data-r="g2">
+      <div>
+        <div style="font-size:12.5px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:{{ accent }}; margin-bottom:20px;">The Location</div>
+        <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(30px,3.6vw,48px); line-height:1.08; letter-spacing:-0.01em; margin:0 0 24px; color:#23201C;">On the corner of 15th &amp; Leary, in the heart of Ballard.</h2>
+        <p style="font-size:16.5px; line-height:1.66; color:#5C564C; margin:0 0 32px; max-width:500px;">A landmark corner, currently raw warehouse and under contract to our team. Visibility, parking, and easy access from downtown, the Eastside, and the north end makes it an ideal location.</p>
+        <div style="display:flex; flex-direction:column; gap:18px;">
+          <div style="display:flex; gap:16px; align-items:flex-start;">
+            <span style="font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#9A9082; width:96px; padding-top:3px;">Address</span>
+            <div><div style="font-family:'Newsreader',serif; font-size:21px; color:#23201C;">1500 NW Leary Way</div><div style="font-size:14.5px; color:#5C564C;">Corner of 15th Ave NW &amp; NW Leary Way · Ballard, Seattle, WA</div></div>
+          </div>
+          <div style="display:flex; gap:16px; align-items:flex-start;">
+            <span style="font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#9A9082; width:96px; padding-top:3px;">Access</span>
+            <div style="font-size: 14.5px; color: #3C382F; line-height: 1.55; padding-top: 1px; width: 420px; height: 47px">Open to the trade and their clients. On-site parking &amp; loading planned.</div>
+          </div>
+        </div>
+      </div>
+      <sc-if value="{{ showMap }}" hint-placeholder-val="{{ true }}">
+        <div style="position:relative; aspect-ratio:4/3; border-radius:5px; overflow:hidden; border:1px solid #D8CFC0; background:#ECE5D8;">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d652.6381303442856!2d-122.37723769614031!3d47.66407519111761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x549015b826af353d%3A0x4e493af3267a2ad0!2s1500%20NW%20Leary%20Wy%2C%20Seattle%2C%20WA%2098107!5e0!3m2!1sen!2sus!4v1782497166799!5m2!1sen!2sus" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allowFullScreen="" loading="lazy" referrerPolicy="strict-origin-when-cross-origin" title="Map — 1500 NW Leary Way, Ballard, Seattle"></iframe>
+          
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- ============ INQUIRE / FORM ============ -->
+  <section id="inquire" style="background:#23201C; color:#EDE7DB;">
+    <div style="max-width:1280px; margin:0 auto; padding:96px 40px 100px; display:grid; grid-template-columns:0.92fr 1.08fr; gap:64px;" data-r="g2 pad">
+      <div>
+        <div style="font-size:12.5px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:{{ accent }}; margin-bottom:22px;">Connect</div>
+        <h2 style="font-family:'Newsreader',serif; font-weight:400; font-size:clamp(30px,3.6vw,46px); line-height:1.1; letter-spacing:-0.01em; margin:0 0 22px; color:#F5F1EA;">Become part of the Center.</h2>
+        <p style="font-size:16.5px; line-height:1.66; color:#B7AF9F; margin:0 0 40px; max-width:430px;">Whether you're a supplier looking to lease showroom space, a designer who wants a desk on the floor, or an investor who sees the opportunity in Ballard, start the conversation here.</p>
+        <div style="display:flex; flex-direction:column; gap:22px; border-top:1px solid #38332C; padding-top:30px;">
+          <div style="background:#2B2722; border:1px solid #4A4036; border-radius:6px; padding:20px 22px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+              <span style="font-size:11.5px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:{{ accent }};">Investor relations</span>
+              <span style="font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#23201C; background:{{ accent }}; padding:3px 8px; border-radius:20px;">Now raising</span>
+            </div>
+            <a href="/cdn-cgi/l/email-protection#d5bcbba3b0a6a195b7b4b9b9b4a7b1b1b0a6bcb2bbb6b0bba1b0a7fbb6bab8" style="font-family:'Newsreader',serif; font-size:20px; color:#F5F1EA; text-decoration:none; display:block; margin-bottom:8px;"><span class="__cf_email__" data-cfemail="6f041a1d1b2f070e1d05000c00011c1b1d1a0c1b060001410c0002">[email&#160;protected]</span></a>
+            <p style="font-size:13.5px; line-height:1.55; color:#9E9686; margin:0;">Backing the acquisition and build-out of 1500 NW Leary Way. Request the investment overview.</p>
+          </div>
+          <div>
+            
+            
+          </div>
+          <div>
+            
+            
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#2B2722; border:1px solid #38332C; border-radius:6px; padding:36px 36px 40px;" data-r="formcard">
+        <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ onSubmit }}">
+            <div style="font-size:15px; font-weight:700; color:#F5F1EA; margin-bottom:24px;">Prospective tenant inquiry</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px 20px;" data-r="g2sub">
+              <label style="display:flex; flex-direction:column; gap:7px;">
+                <span style="font-size:12.5px; font-weight:600; letter-spacing:0.04em; color:#A79E8D;">Name</span>
+                <input value="{{ name }}" onChange="{{ onName }}" placeholder="Your name" style="background:#23201C; border:1px solid #443E36; border-radius:4px; padding:12px 14px; color:#F5F1EA; font-family:inherit; font-size:14.5px; outline:none;">
+              </label>
+              <label style="display:flex; flex-direction:column; gap:7px;">
+                <span style="font-size:12.5px; font-weight:600; letter-spacing:0.04em; color:#A79E8D;">Company / Showroom</span>
+                <input value="{{ company }}" onChange="{{ onCompany }}" placeholder="Business name" style="background:#23201C; border:1px solid #443E36; border-radius:4px; padding:12px 14px; color:#F5F1EA; font-family:inherit; font-size:14.5px; outline:none;">
+              </label>
+              <label style="display:flex; flex-direction:column; gap:7px;">
+                <span style="font-size:12.5px; font-weight:600; letter-spacing:0.04em; color:#A79E8D;">Email</span>
+                <input type="email" value="{{ email }}" onChange="{{ onEmail }}" placeholder="you@studio.com" style="background:#23201C; border:1px solid #443E36; border-radius:4px; padding:12px 14px; color:#F5F1EA; font-family:inherit; font-size:14.5px; outline:none;">
+              </label>
+              <label style="display:flex; flex-direction:column; gap:7px;">
+                <span style="font-size:12.5px; font-weight:600; letter-spacing:0.04em; color:#A79E8D;">Phone</span>
+                <input value="{{ phone }}" onChange="{{ onPhone }}" placeholder="(206) 000-0000" style="background:#23201C; border:1px solid #443E36; border-radius:4px; padding:12px 14px; color:#F5F1EA; font-family:inherit; font-size:14.5px; outline:none;">
+              </label>
+            </div>
+            <label style="display:flex; flex-direction:column; gap:7px; margin-top:18px;">
+              <span style="font-size:12.5px; font-weight:600; letter-spacing:0.04em; color:#A79E8D;">I'm interested in</span>
+              <select value="{{ interest }}" onChange="{{ onInterest }}" style="background:#23201C; border:1px solid #443E36; border-radius:4px; padding:12px 14px; color:#F5F1EA; font-family:inherit; font-size:14.5px; outline:none;">
+                <option>Leasing a showroom</option>
+                <option>Designer workspace / a desk</option>
+                <option>Trade partnership</option>
+                <option>Investment opportunity</option>
+                <option>General inquiry</option>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:7px; margin-top:18px;">
+              <span style="font-size:12.5px; font-weight:600; letter-spacing:0.04em; color:#A79E8D;">Tell us about your business</span>
+              <textarea value="{{ message }}" onChange="{{ onMessage }}" rows="4" placeholder="Category, square footage, timeline…" style="background:#23201C; border:1px solid #443E36; border-radius:4px; padding:12px 14px; color:#F5F1EA; font-family:inherit; font-size:14.5px; outline:none; resize:vertical;"></textarea>
+            </label>
+            <button type="submit" style="margin-top:26px; width:100%; padding:15px; background:{{ accent }}; color:#23201C; font-family:inherit; font-size:15px; font-weight:700; letter-spacing:0.02em; border:none; border-radius:4px; cursor:pointer;">Submit inquiry</button>
+            <p style="font-size:12.5px; color:#8E8676; margin:16px 0 0; line-height:1.5;">We'll respond within two business days. The BDC is a concept now pre-leasing ahead of a planned 2027 opening.</p>
+          </form>
+        </sc-if>
+        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-direction:column; align-items:flex-start; justify-content:center; min-height:420px;">
+            <span style="display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:50%; background:{{ accent }}; color:#23201C; font-size:22px; font-weight:700; margin-bottom:22px;">✓</span>
+            <h3 style="font-family:'Newsreader',serif; font-weight:400; font-size:30px; margin:0 0 14px; color:#F5F1EA;">Thank you — we've got it.</h3>
+            <p style="font-size:16px; line-height:1.6; color:#B7AF9F; margin:0; max-width:380px;">A member of the Ballard Design Center team will be in touch within two business days to continue the conversation.</p>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#1B1815; color:#9C9483;">
+    <div style="max-width:1280px; margin:0 auto; padding:54px 40px 40px; display:flex; flex-wrap:wrap; gap:32px; justify-content:space-between; align-items:flex-start;" data-r="pad">
+      <div style="max-width:340px;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+          <span style="display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; background:#F5F1EA; color:#1B1815; font-weight:800; font-size:13px; border-radius:3px;">BDC</span>
+          <span style="font-weight:700; font-size:14px; letter-spacing:0.16em; text-transform:uppercase; color:#EDE7DB;">Ballard Design Center</span>
+        </div>
+        <p style="font-size:14px; line-height:1.6; margin:0;">A curated, trade-focused design showroom concept. 1500 NW Leary Way · Ballard, Seattle.</p>
+      </div>
+      <div style="display:flex; gap:64px; flex-wrap:wrap;">
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <span style="font-size:11.5px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#6B6456; margin-bottom:4px;">Explore</span>
+          <a href="#destination" style="font-size:14px; color:#C3BBAA; text-decoration:none;">The Center</a>
+          <a href="#showrooms" style="font-size:14px; color:#C3BBAA; text-decoration:none;">Showrooms</a>
+          <a href="#workspace" style="font-size:14px; color:#C3BBAA; text-decoration:none;">Workspace</a>
+          <a href="#location" style="font-size:14px; color:#C3BBAA; text-decoration:none;">Location</a>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <span style="font-size:11.5px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#6B6456; margin-bottom:4px;">Connect</span>
+          <a href="#inquire" style="font-size:14px; color:#C3BBAA; text-decoration:none;">Tenant inquiry</a>
+          <a href="/cdn-cgi/l/email-protection#deaaacbfbabb9ebcbfb2b2bfacbababbadb7b9b0bdbbb0aabbacf0bdb1b3" style="font-size:14px; color:#C3BBAA; text-decoration:none;">Trade contact</a>
+          <a href="/cdn-cgi/l/email-protection#fd91989c8e94939abd9f9c91919c8f9999988e949a939e989389988fd39e9290" style="font-size:14px; color:#C3BBAA; text-decoration:none;">Leasing</a>
+          <a href="/cdn-cgi/l/email-protection#543d3a2231272014363538383526303031273d333a37313a2031267a373b39" style="font-size:14px; color:#C3BBAA; text-decoration:none;">Investor relations</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid #2C2823;">
+      <div style="max-width:1280px; margin:0 auto; padding:20px 40px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; font-size:12.5px; color:#6B6456;" data-r="pad">
+        <span>© 2026 Ballard Design Center. A concept in development · Pre-opening 2027.</span>
+        <span>Pre-leasing now · Northwest Seattle</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script data-props="{
+  &quot;accentColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#9B7B50&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;#9B7B50&quot;, &quot;#8C6F4E&quot;, &quot;#6E7257&quot;, &quot;#7A6A57&quot;], &quot;section&quot;: &quot;Brand&quot; },
+  &quot;appointmentBadge&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Hero&quot; },
+  &quot;showMap&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Location&quot; }
+}">
+class Component extends DCLogic {
+  state = {
+    name: '', company: '', email: '', phone: '',
+    interest: 'Leasing a showroom', message: '',
+    submitted: false,
+    menuOpen: false,
+  };
+
+  renderVals() {
+    const set = (k) => (e) => {
+      const v = e.target.value;
+      this.setState({ [k]: v });
+    };
+    const accent = this.props.accentColor ?? '#9B7B50';
+    return {
+      accent,
+      showBadge: this.props.appointmentBadge ?? true,
+      showMap: this.props.showMap ?? true,
+      name: this.state.name,
+      company: this.state.company,
+      email: this.state.email,
+      phone: this.state.phone,
+      interest: this.state.interest,
+      message: this.state.message,
+      onName: set('name'),
+      onCompany: set('company'),
+      onEmail: set('email'),
+      onPhone: set('phone'),
+      onInterest: set('interest'),
+      onMessage: set('message'),
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      menuOpen: this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      onSubmit: (e) => { e.preventDefault(); this.setState({ submitted: true }); },
+    };
+  }
+}
+</script>
+</body>
+</html>
